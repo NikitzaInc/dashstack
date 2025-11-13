@@ -35,7 +35,7 @@ const SignInPage: React.FC = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("http://localhost:8000/api/auth", {
+      const response = await axios.post("/api/auth", {
         email: data.email,
         password: data.password,
       });

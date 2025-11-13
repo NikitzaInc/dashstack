@@ -24,7 +24,7 @@ const SettingsPage: React.FC = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await api.get('/api/user', { withCredentials: true,  });
+        const res = await api.get('/user', { withCredentials: true,  });
         setCurrentUserData(res.data.data);
         setNewData({
           name: res.data.data.name || "",
@@ -53,7 +53,7 @@ const SettingsPage: React.FC = () => {
     setIsLoading(true);
     try {
       const res = await api.post(
-        '/api/user?_method=PUT',
+        '/user?_method=PUT',
         newData,
         { withCredentials: true }
       );

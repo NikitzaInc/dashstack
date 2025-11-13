@@ -1,0 +1,59 @@
+
+
+services:
+  api:
+    build: ./api
+    container_name: dashstack_api
+    volumes:
+      - ./api:/var/www
+      - /var/www/vendor
+      - ./api/database/database.sqlite:/var/www/database/database.sqlite
+    ports:
+      - "9000:9000"
+    networks:
+      - dashstack_net
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_URL=http://localhost
+
+  client:
+    build: ./client
+    container_name: dashstack_client
+    volumes:
+      - ./client:/app          # live-синхронизация кода
+      - /app/node_modules      # для исполняемого файла Vite
+    ports:
+      - "5173:5173"            # проброс порта Vite
+    networks:
+      - dashstack_net
+
+  server:
+    build: ./server
+    container_name: dashstack_ws
+    volumes:
+      - ./server:/app
+    ports:
+      - "5000:5000"
+    networks:
+      - dashstack_net
+
+  nginx:
+    image: nginx:latest
+    container_name: dashstack_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - api
+      - client
+      - server
+    networks:
+      - dashstack_net
+
+networks:
+  dashstack_net:
+    driver: bridge
+

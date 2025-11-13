@@ -20,7 +20,7 @@ const TodoPage:React.FC = () => {
     const fetchTodoes = async () => {
       setIsLoading(true);
       try {
-        const response = await api.get<TodoState[]>("/api/todoes");
+        const response = await api.get<TodoState[]>("/todoes");
         setTodoes(response.data.data);
       } catch (e) {
         console.error(e);

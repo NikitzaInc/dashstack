@@ -15,7 +15,7 @@ export interface CalendarEvent {
 
 export const calendarApi = createApi({
     reducerPath: 'calendarApi',
-    baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:8000/api' }),
+    baseQuery: axiosBaseQuery({ baseUrl: '/api' }),
     endpoints: (builder) => ({
         getCalendarEvents: builder.query({
             query: () => {

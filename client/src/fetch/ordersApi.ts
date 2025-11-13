@@ -13,7 +13,7 @@ export interface Order {
 
 export const ordersApi = createApi({
     reducerPath: "ordersApi",
-    baseQuery: axiosBaseQuery({ baseUrl: "http://localhost:8000/api" }),
+    baseQuery: axiosBaseQuery({ baseUrl: "/api" }), 
     endpoints: (builder) => ({
         getOrders: builder.query<any, { 
             page: number; 

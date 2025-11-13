@@ -15,10 +15,10 @@ export interface Product {
 
 export const productsApi = createApi({
     reducerPath: 'productsApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/' }),
+    baseQuery: fetchBaseQuery({ baseUrl: '/' }),
     endpoints: (builder) => ({
         getProducts: builder.query<Product[], void>({
-            query: () => 'products',
+            query: () => 'api/products',
         })
     })
 })
@@ -28,7 +28,7 @@ const { useGetProductsQuery } = productsApi
 export const fetchProducts = createAsyncThunk('products/fetchProducts', 
     async () => {
         try{
-            const response = await api.get('/api/products')
+            const response = await api.get('/products')
             return response.data
         } catch (e) {
             throw e
@@ -39,7 +39,7 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts',
 export const editProduct = createAsyncThunk('product/editProduct',
   async ({ id, formData }: { id: number; formData: FormData }) => {
         try {
-            const response = await api.post(`api/update_product/${id}?_method=PUT`, formData, {
+            const response = await api.post(`update_product/${id}?_method=PUT`, formData, {
               headers: { 'Content-Type': 'multipart/form-data' },
             })
             return response.data;
@@ -53,7 +53,7 @@ export const deleteProduct = createAsyncThunk(
     'product/deleteProduct',
     async (productId: number, { rejectWithValue }) => {
       try {
-        await api.delete(`/api/delete_product/${productId}`);
+        await api.delete(`/delete_product/${productId}`);
         return productId;
       } catch (error: any) {
         return rejectWithValue(error.response?.data?.message);
@@ -65,7 +65,7 @@ export const deleteProduct = createAsyncThunk(
     'product/addProduct',
     async (productData: Product, { rejectWithValue }) => {
         try {
-            const response = await api.post('/api/new_product', productData)
+            const response = await api.post('/new_product', productData)
             return response.data
         } catch (error: any) {
             return rejectWithValue(error.message)
@@ -76,7 +76,7 @@ export const deleteProduct = createAsyncThunk(
   export const fetchFavourites = createAsyncThunk('products/fetchFavourites', 
     async () => {
         try {
-            const response = await api.get('/api/favourites')
+            const response = await api.get('/favourites')
             return response.data.data
         } catch (e) {
             throw e
@@ -88,7 +88,7 @@ export const setLike = createAsyncThunk(
   'product/setLike',
   async (productId: number, { rejectWithValue }) => {
     try {
-      const res = await api.post(`/api/like_product/${productId}`);
+      const res = await api.post(`/like_product/${productId}`);
       return res.data.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message);
@@ -100,7 +100,7 @@ export const unsetLike = createAsyncThunk(
   'product/unsetLike',
   async (productId: number, { rejectWithValue }) => {
     try {
-      await api.post(`/api/unlike_product/${productId}`);
+      await api.post(`/unlike_product/${productId}`);
       return productId;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message);

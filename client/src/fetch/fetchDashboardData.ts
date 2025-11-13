@@ -11,10 +11,10 @@ export const fetchDashboardData = createAsyncThunk<DashboardData, void>(
   async () => {
     try {
       const promises = [
-        api.get<TotalData>("/api/users"),
-        api.get<TotalData>("/api/orders"),
-        api.get<SalesData>("/api/sales"),
-        api.get<DealsData>("/api/deals"),
+        api.get<TotalData>("/users"),
+        api.get<TotalData>("/orders"),
+        api.get<SalesData>("/sales"),
+        api.get<DealsData>("/deals"),
         // axios.get('https://api.openweathermap.org/data/2.5/weather?lat=-8.335893&lon=112.642835&appid=3d426fedf00d9d3ef8cb36897488d7cb')
       ];
 

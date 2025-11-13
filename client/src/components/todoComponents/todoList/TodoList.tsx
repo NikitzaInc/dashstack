@@ -40,7 +40,7 @@ const TodoList: React.FC<TodoProps> = ({fetchTodoes, todoes, isLoading, setTodoe
     try {
       const idsToDelete = Array.from(checkedItems);
       await Promise.all(idsToDelete.map(async (id) => {
-        await api.delete(`/api/delete_todoes/${id}`);
+        await api.delete(`/delete_todoes/${id}`);
       }));
       setTodoes(prevTodoes => prevTodoes.filter(todo => !idsToDelete.includes(todo.id)));
       setCheckedItems(new Set());
@@ -51,7 +51,7 @@ const TodoList: React.FC<TodoProps> = ({fetchTodoes, todoes, isLoading, setTodoe
 
   const handleDeleteTodo = async (id: number): Promise<void> => {
     try {
-      await api.delete(`/api/delete_todoes/${id}`);
+      await api.delete(`/delete_todoes/${id}`);
 
       setTodoes(prevTodoes => prevTodoes.filter(todo => todo.id !== id));
 

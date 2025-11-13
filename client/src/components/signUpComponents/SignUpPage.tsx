@@ -34,7 +34,7 @@ const SignUpPage: React.FC = () => {
 
   const onSubmit = async (data) => {
       try {
-        const response = await axios.post('http://localhost:8000/api/reg', {
+        const response = await axios.post('/api/reg', {
           email: data.email,
           name: data.username,
           password: data.password,

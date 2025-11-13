@@ -34,7 +34,7 @@ const Navigation: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await api.post("/api/logout");
+      await api.post("/logout");
     } catch (err) {
       console.error(err);
     } finally {

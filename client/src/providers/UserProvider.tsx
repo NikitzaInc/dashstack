@@ -24,7 +24,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const fetchUser = async () => {
     setIsLoadingUser(true);
     try {
-      const res = await api.get("/api/user", { withCredentials: true });
+      const res = await api.get("/user", { withCredentials: true });
       setCurrentUser(res.data.data || false);
     } catch (e) {
       setCurrentUser(false);

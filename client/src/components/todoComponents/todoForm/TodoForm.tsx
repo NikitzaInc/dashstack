@@ -15,7 +15,7 @@ const TodoForm: React.FC<{ onClose: () => void; fetchTodoes: () => void }> = ({ 
 
     try {
       setIsLoading(true);
-      await api.post("/api/new_todo", { body: newTask });
+      await api.post("/new_todo", { body: newTask });
       await fetchTodoes();
       onClose();
     } catch (err) {
